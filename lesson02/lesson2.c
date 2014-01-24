@@ -137,7 +137,7 @@ void LoadGLTextures() {
         exit(0);
     }
 
-    if (!ImageLoad("/home/eri/Bilder/texturefun1.bmp", image1)) {
+    if (!ImageLoad("texture.bmp", image1)) {
         exit(1);
     }
 
@@ -158,7 +158,7 @@ void InitGL(int Width, int Height)	        // We call this right after our OpenG
 {
     LoadGLTextures();				// Load The Texture(s)
     glEnable(GL_TEXTURE_2D);
-    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);		// This Will Clear The Background Color To Black
+    glClearColor(0.2f, 0.2f, 0.2f, 0.0f);		// This Will Clear The Background Color To Black
     glClearDepth(1.0);				// Enables Clearing Of The Depth Buffer
     glDepthFunc(GL_LESS);				// The Type Of Depth Test To Do
     glEnable(GL_DEPTH_TEST);			// Enables Depth Testing
