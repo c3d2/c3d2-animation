@@ -5,6 +5,7 @@ COMPILERFLAGS = -Wall
 CC = gcc
 CFLAGS = $(COMPILERFLAGS) $(INCLUDE)
 LIBRARIES = -lX11 -lXi -lXmu -lglut -lGL -lGLU -lm 
+OBJECTS = $(patsubst %.c, %.o, $(wildcard ./*.c))
 
 # for all, set the targets to be every lesson1.c-lesson13.c 
 # file, removing the .c extension.  That is, at this point,
@@ -33,8 +34,8 @@ lesson%.tar.gz :
 #
 # 1. compile the thing.  uses the variables defined above.
 # 
-lesson% : lesson%.o
-	$(CC) $(CFLAGS) -o $@ $(LIBDIR) $< $(LIBRARIES)  
+lesson% : lesson%.o $(OBJECTS)
+	$(CC) $(CFLAGS) -o $@ $(OBJECTS) $(LIBDIR) $(LIBRARIES)  
 
 # to clean up:
 # delete all of the lessonX files.
@@ -46,3 +47,5 @@ clean:
 distclean:
 	rm $(wildcard lesson[1-9].tar.gz lesson1[0-3].tar.gz)
 
+%.o: %.c
+	$(CC) -c -o $@ $<
