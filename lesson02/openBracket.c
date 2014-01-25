@@ -3,11 +3,13 @@
 #include <GL/glu.h>	// Header File For The GLu32 Library
 
 
-void DrawOpenBracket(float xrot, float yrot, float zrot)
+void DrawOpenBracket(float xrot, float yrot, float zrot, GLuint texture)
 {
     glRotatef(xrot, 1.0f, 0.0f, 0.0f);
     glRotatef(yrot, 0.0f, 1.0f, 0.0f);
     glRotatef(zrot, 0.0f, 0.0f, 1.0f);
+
+    glBindTexture(GL_TEXTURE_2D, texture);
 
     // draw a square (quadrilateral)
     glBegin(GL_QUADS);				// start drawing a polygon (4 sided)

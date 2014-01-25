@@ -6,6 +6,6 @@
  * rotate the object with the 3 args
  */
 
-void DrawSlash(float xrot, float yrot, float zrot);
+void DrawSlash(float xrot, float yrot, float zrot, GLuint texture);
 
 #endif
