@@ -34,6 +34,9 @@ float zrot = 0.0f;
 float xrot_scene = 0.0f;
 float yrot_scene = 0.0f;
 float zrot_scene = 0.0f;
+float xrot_scene_d = 0.0f;
+float yrot_scene_d = 0.0f;
+float zrot_scene_d = 0.0f;
 
 float i = 0.3;
 int full = 0;
@@ -230,6 +233,9 @@ void DrawGLScene()
 
     glTranslatef(0.0f,0.0f,-8.0f);		// Move Left 1.5 Units And Into The Screen 6.0
 
+    xrot_scene += xrot_scene_d;
+    yrot_scene += yrot_scene_d;
+    zrot_scene += zrot_scene_d;
     glRotatef(xrot_scene, 1.0f, 0.0f, 0.0f);
     glRotatef(yrot_scene, 0.0f, 1.0f, 0.0f);
     glRotatef(zrot_scene, 0.0f, 0.0f, 1.0f);
@@ -301,24 +307,38 @@ void keyPressed(unsigned char key, int x, int y)
     }
 }
 
-void specialKeyPressed(int key, int x, int y)
+void specialPressKey(int key, int x, int y)
 {
-    /* avoid thrashing this procedure */
-    usleep(100);
-
     switch (key)
     {
         case GLUT_KEY_UP:
-                  xrot_scene += 5;
+                  xrot_scene_d = 5;
                   break;
         case GLUT_KEY_DOWN:
-                  xrot_scene -= 5;
+                  xrot_scene_d = -5;
                   break;
         case GLUT_KEY_LEFT:
-                  yrot_scene += 5;
+                  yrot_scene_d = 5;
                   break;
         case GLUT_KEY_RIGHT:
-                  yrot_scene -= 5;
+                  yrot_scene_d = -5;
+                  break;
+        default:
+                  break;
+    }
+}
+
+void specialUpKey(int key, int x, int y)
+{
+    switch (key)
+    {
+        case GLUT_KEY_UP:
+        case GLUT_KEY_DOWN:
+                  xrot_scene_d = 0;
+                  break;
+        case GLUT_KEY_LEFT:
+        case GLUT_KEY_RIGHT:
+                  yrot_scene_d = 0;
                   break;
         default:
                   break;
@@ -362,7 +382,8 @@ int main(int argc, char **argv)
     /* Register the function called when the keyboard is pressed. */
     glutKeyboardFunc(&keyPressed);
 
-    glutSpecialFunc(&specialKeyPressed);
+    glutSpecialFunc(&specialPressKey);
+    glutSpecialUpFunc(&specialUpKey);
 
     /* Initialize our window. */
     InitGL(640, 480);
